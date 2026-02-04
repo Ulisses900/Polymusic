@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estúdios Polydisc Music - Agendamento</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Paleta de cores inspirada na Polydisc Music */
+            --color-dark-base: #0a0a0f; /* Preto profundo - fundo principal */
+            --color-dark-secondary: #1a1a24; /* Grafite - fundos secundários */
+            --color-dark-tertiary: #2a2a35; /* Grafite claro - elementos UI */
+            
+            --color-brand-primary: #e63946; /* Vermelho vibrante - botões principais, destaques */
+            --color-brand-secondary: #d90429; /* Vermelho escuro - hover states */
+            
+            --color-accent-blue: #4cc9f0; /* Azul neon - LEDs, indicadores */
+            --color-accent-green: #52b788; /* Verde VU meter - confirmações, status */
+            --color-accent-amber: #ff9e00; /* Âmbar de válvulas - avisos, destaques */
+            --color-accent-purple: #9d4edd; /* Roxo - elementos especiais */
+            
+            --color-text-primary: #f8f9fa; /* Texto primário - alto contraste */
+            --color-text-secondary: #adb5bd; /* Texto secundário */
+            --color-text-tertiary: #6c757d; /* Texto terciário */
+            
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--color-dark-base);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background-color: rgba(10, 10, 15, 0.95);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--color-brand-primary);
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            color: var(--color-brand-primary);
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px rgba(230, 57, 70, 0.5);
+        }
+        
+        .logo-text h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0;
+        }
+        
+        .logo-text span {
+            color: var(--color-brand-primary);
+        }
+        
+        .logo-text p {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            letter-spacing: 1px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(10, 10, 15, 0.9), rgba(10, 10, 15, 0.9)), 
+                        url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--color-dark-tertiary);
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: var(--color-text-secondary);
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            padding: 50px 0;
+        }
+        
+        /* Booking Section */
+        .booking-section {
+            background-color: var(--color-dark-secondary);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--color-dark-tertiary);
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--color-brand-primary);
+        }
+        
+        .section-title i {
+            color: var(--color-brand-primary);
+        }
+        
+        /* Calendar */
+        .calendar {
+            margin-bottom: 30px;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .month-nav {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .month-nav button {
+            background-color: var(--color-dark-tertiary);
+            border: none;
+            color: var(--color-text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .month-nav button:hover {
+            background-color: var(--color-brand-primary);
+        }
+        
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            margin-bottom: 10px;
+            text-align: center;
+            color: var(--color-text-tertiary);
+            font-weight: 500;
+        }
+        
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+        
+        .day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--color-dark-tertiary);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .day:hover {
+            background-color: var(--color-brand-primary);
+        }
+        
+        .day.available {
+            background-color: var(--color-accent-green);
+            color: var(--color-dark-base);
+        }
+        
+        .day.selected {
+            background-color: var(--color-brand-primary);
+            box-shadow: 0 0 0 2px var(--color-accent-amber);
+        }
+        
+        .day.unavailable {
+            background-color: #333;
+            color: var(--color-text-tertiary);
+            cursor: not-allowed;
+        }
+        
+        /* Time Slots */
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .time-slot {
+            background-color: var(--color-dark-tertiary);
+            border-radius: var(--border-radius);
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .time-slot:hover {
+            background-color: var(--color-brand-primary);
+        }
+        
+        .time-slot.selected {
+            background-color: var(--color-brand-primary);
+            box-shadow: 0 0 0 2px var(--color-accent-amber);
+        }
+        
+        .time-slot.unavailable {
+            background-color: #333;
+            color: var(--color-text-tertiary);
+            cursor: not-allowed;
+        }
+        
+        /* Studio Selection */
+        .studio-selection {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .studio-option {
+            flex: 1;
+            background-color: var(--color-dark-tertiary);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        
+        .studio-option:hover {
+            border-color: var(--color-accent-blue);
+        }
+        
+        .studio-option.selected {
+            border-color: var(--color-brand-primary);
+            background-color: rgba(230, 57, 70, 0.1);
+        }
+        
+        .studio-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .audio-icon {
+            color: var(--color-accent-green);
+        }
+        
+        .video-icon {
+            color: var(--color-accent-purple);
+        }
+        
+        .price-tag {
+            display: inline-block;
+            background-color: var(--color-brand-primary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .contact-price {
+            color: var(--color-accent-amber);
+            font-weight: bold;
+        }
+        
+        /* Form Fields */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: var(--color-dark-tertiary);
+            border: 1px solid var(--color-dark-tertiary);
+            border-radius: var(--border-radius);
+            color: var(--color-text-primary);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--color-brand-primary);
+        }
+        
+        /* Checkbox */
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: rgba(255, 158, 0, 0.1);
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--color-accent-amber);
+        }
+        
+        .checkbox-container input {
+            margin-top: 4px;
+            margin-right: 12px;
+            min-width: 18px;
+            min-height: 18px;
+        }
+        
+        .checkbox-container label {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .checkbox-container a {
+            color: var(--color-accent-blue);
+            text-decoration: none;
+        }
+        
+        .checkbox-container a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Payment Info */
+        .payment-info {
+            background-color: rgba(76, 201, 240, 0.1);
+            border-left: 4px solid var(--color-accent-blue);
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        /* Terms */
+        .terms-section {
+            background-color: var(--color-dark-secondary);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--color-dark-tertiary);
+            margin-bottom: 30px;
+        }
+        
+        .terms-content {
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .terms-content ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .terms-content li {
+            margin-bottom: 10px;
+        }
+        
+        /* Contact */
+        .contact-section {
+            background-color: var(--color-dark-secondary);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--color-dark-tertiary);
+        }
+        
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .whatsapp {
+            background-color: #25D366;
+            color: white;
+        }
+        
+        .email {
+            background-color: var(--color-brand-primary);
+            color: white;
+        }
+        
+        .instagram {
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+            color: white;
+        }
+        
+        .youtube {
+            background-color: #FF0000;
+            color: white;
+        }
+        
+        /* Video Section */
+        .video-section {
+            margin-top: 30px;
+            background-color: var(--color-dark-tertiary);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .video-container {
+            width: 100%;
+            height: 280px; /* Aumentado para facilitar visualização */
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin-top: 15px;
+            background-color: var(--color-dark-base);
+            position: relative;
+        }
+        
+        .video-container:first-of-type {
+            margin-top: 0;
+        }
+        
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-secondary);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        .video-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--color-accent-blue);
+        }
+        
+        /* Map Section */
+        .map-section {
+            margin-top: 30px;
+            background-color: var(--color-dark-tertiary);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .map-container {
+            width: 100%;
+            height: 250px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin-top: 15px;
+            border: 1px solid var(--color-dark-secondary);
+        }
+        
+        .address-info {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+        }
+        
+        /* Social Media */
+        .social-media {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--color-dark-tertiary);
+            text-align: center;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Admin Panel */
+        .admin-panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--color-dark-secondary);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--color-accent-purple);
+            width: 90%;
+            max-width: 800px;
+            z-index: 1002;
+            display: none;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .admin-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1001;
+            display: none;
+        }
+        
+        .admin-toggle {
+            background: none;
+            border: none;
+            color: var(--color-text-tertiary);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            border-radius: var(--border-radius);
+        }
+        
+        .admin-toggle:hover {
+            color: var(--color-accent-purple);
+            background-color: rgba(157, 78, 221, 0.1);
+        }
+        
+        .admin-password {
+            margin-bottom: 20px;
+        }
+        
+        .admin-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--color-text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background-color: var(--color-brand-primary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            background-color: var(--color-brand-secondary);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-light);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--color-accent-blue);
+            color: var(--color-accent-blue);
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(76, 201, 240, 0.1);
+        }
+        
+        .btn-disabled {
+            background-color: var(--color-dark-tertiary);
+            color: var(--color-text-tertiary);
+            cursor: not-allowed;
+        }
+        
+        .btn-disabled:hover {
+            transform: none;
+            box-shadow: none;
+            background-color: var(--color-dark-tertiary);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--color-dark-secondary);
+            padding: 40px 0 20px;
+            text-align: center;
+            border-top: 1px solid var(--color-dark-tertiary);
+            margin-top: 50px;
+            position: relative;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            color: var(--color-brand-primary);
+            margin-bottom: 20px;
+        }
+        
+        .copyright {
+            color: var(--color-text-tertiary);
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+        
+        .footer-admin {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: center;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-panel {
+                width: 95%;
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .studio-selection {
+                flex-direction: column;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .time-slots {
+                grid-template-columns: 1fr;
+            }
+            
+            .video-container {
+                height: 220px;
+            }
+            
+            .map-container {
+                height: 200px;
+            }
+            
+            .social-icons {
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .booking-section, .contact-section, .terms-section {
+                padding: 20px;
+            }
+            
+            .video-container {
+                height: 180px;
+            }
+            
+            .map-container {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-compact-disc"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>POLYDISC <span>MUSIC</span></h1>
+                    <p>ESTÚDIOS PROFISSIONAIS | DESDE 1982</p>
+                </div>
+            </div>
+            <div class="contact-info">
+                <p><i class="fab fa-whatsapp"></i> (81) 99134-7040</p>
+                <p><i class="fas fa-envelope"></i> somaxstd3@gmail.com</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>AGENDAMENTO DE ESTÚDIOS</h2>
+            <p>Reserve nosso estúdio de áudio profissional ou entre em contato para orçamento de produção de vídeo. Ambiente premium com equipamentos de última geração.</p>
+            <div class="hero-buttons">
+                <button class="btn" onclick="scrollToBooking()">AGENDAR AGORA</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Backdrop -->
+    <div class="admin-backdrop" id="adminBackdrop" onclick="closeAdminPanel()"></div>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <button class="admin-close" onclick="closeAdminPanel()">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="section-title">
+            <i class="fas fa-user-shield"></i>
+            <h2>Painel Administrativo</h2>
+        </div>
+        
+        <div id="adminLogin">
+            <div class="form-group admin-password">
+                <label for="adminPassword">Senha de Administrador:</label>
+                <input type="password" id="adminPassword" class="form-control" placeholder="Digite a senha">
+            </div>
+            <button class="btn" onclick="adminLogin()">Acessar Painel</button>
+        </div>
+        
+        <div id="adminContent" style="display: none;">
+            <p>Clique em uma data no calendário abaixo para marcar/desmarcar como disponível. Datas em vermelho estão indisponíveis.</p>
+            
+            <div class="calendar">
+                <div class="calendar-header">
+                    <h3 id="admin-current-month">Junho 2023</h3>
+                    <div class="month-nav">
+                        <button id="admin-prev-month"><i class="fas fa-chevron-left"></i></button>
+                        <button id="admin-next-month"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                
+                <div class="weekdays">
+                    <div>Dom</div>
+                    <div>Seg</div>
+                    <div>Ter</div>
+                    <div>Qua</div>
+                    <div>Qui</div>
+                    <div>Sex</div>
+                    <div>Sáb</div>
+                </div>
+                
+                <div class="days" id="admin-calendar-days">
+                    <!-- Admin calendar days will be generated by JavaScript -->
+                </div>
+            </div>
+            
+            <div class="form-group" style="margin-top: 20px;">
+                <label for="adminStudioType">Tipo de Estúdio:</label>
+                <select id="adminStudioType" class="form-control" onchange="updateAdminCalendar()">
+                    <option value="audio">Áudio</option>
+                    <option value="video">Vídeo</option>
+                    <option value="both">Ambos</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="adminPeriodType">Período:</label>
+                <select id="adminPeriodType" class="form-control" onchange="updateAdminCalendar()">
+                    <option value="full">Período Completo (8h)</option>
+                    <option value="half1">Meio Período (10h-14h)</option>
+                    <option value="half2">Meio Período (14h-18h)</option>
+                    <option value="all">Todos os Períodos</option>
+                </select>
+            </div>
+            
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn" onclick="saveAdminChanges()">Salvar Alterações</button>
+                <button class="btn btn-secondary" onclick="resetAdminChanges()">Resetar</button>
+            </div>
+            
+            <div class="payment-info" style="margin-top: 20px;">
+                <h4><i class="fas fa-info-circle"></i> Instruções:</h4>
+                <p>• Clique em uma data para alternar entre disponível/indisponível</p>
+                <p>• Datas em vermelho = Indisponíveis</p>
+                <p>• Datas em verde = Disponíveis</p>
+                <p>• Período completo (8h) substitui meios períodos automaticamente</p>
+                <p>• As alterações são salvas automaticamente no navegador</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Column: Booking Section -->
+            <div class="left-column">
+                <!-- Booking Section -->
+                <section class="booking-section" id="booking">
+                    <div class="section-title">
+                        <i class="far fa-calendar-alt"></i>
+                        <h2>Selecione Data e Horário</h2>
+                    </div>
+                    
+                    <!-- Client Name -->
+                    <div class="form-group">
+                        <label for="clientName">Seu Nome:</label>
+                        <input type="text" id="clientName" class="form-control" placeholder="Digite seu nome completo">
+                    </div>
+                    
+                    <!-- Calendar -->
+                    <div class="calendar">
+                        <div class="calendar-header">
+                            <h3 id="current-month">Junho 2023</h3>
+                            <div class="month-nav">
+                                <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+                                <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="weekdays">
+                            <div>Dom</div>
+                            <div>Seg</div>
+                            <div>Ter</div>
+                            <div>Qua</div>
+                            <div>Qui</div>
+                            <div>Sex</div>
+                            <div>Sáb</div>
+                        </div>
+                        
+                        <div class="days" id="calendar-days">
+                            <!-- Calendar days will be generated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <!-- Time Slots -->
+                    <div class="time-slots-section">
+                        <h3>Períodos Disponíveis</h3>
+                        <div class="time-slots" id="time-slots">
+                            <!-- Time slots will be generated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <!-- Studio Selection -->
+                    <div class="studio-section">
+                        <h3>Selecione o Estúdio</h3>
+                        <div class="studio-selection">
+                            <div class="studio-option" id="audio-studio" onclick="selectStudio('audio')">
+                                <div class="studio-icon audio-icon">
+                                    <i class="fas fa-microphone-alt"></i>
+                                </div>
+                                <h4>Estúdio de Áudio</h4>
+                                <p>Gravação, mixagem e masterização</p>
+                                <div class="price-tag">R$ 1.000 / período</div>
+                                <p class="period-info">Período: 8h (10h às 18h)</p>
+                                <p class="period-info">Meio período: 4h (10h-14h ou 14h-18h)</p>
+                            </div>
+                            
+                            <div class="studio-option" id="video-studio" onclick="selectStudio('video')">
+                                <div class="studio-icon video-icon">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <h4>Estúdio de Vídeo</h4>
+                                <p>Gravação, iluminação e produção</p>
+                                <p class="contact-price">Orçamento com equipe técnica</p>
+                                <p class="period-info">Períodos personalizados</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Info -->
+                    <div class="payment-info">
+                        <h4><i class="fas fa-money-check-alt"></i> Condições de Pagamento</h4>
+                        <p>• 50% do valor adiantado para reserva</p>
+                        <p>• 50% restantes no dia do agendamento</p>
+                        <p>• Aceitamos PIX e transferência bancária</p>
+                    </div>
+                    
+                    <!-- Terms Checkbox -->
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="termsCheckbox">
+                        <label for="termsCheckbox">
+                            Li e concordo com os <a href="#terms" onclick="showTerms()">Termos e Condições</a> da Polydisc Music, incluindo a política de responsabilidade por atrasos do cliente e compensação por quedas de energia.
+                        </label>
+                    </div>
+                    
+                    <!-- Booking Button -->
+                    <button class="btn" id="confirmButton" onclick="confirmBooking()" disabled>CONFIRMAR AGENDAMENTO</button>
+                </section>
+                
+                <!-- Terms Section -->
+                <section class="terms-section" id="terms">
+                    <div class="section-title">
+                        <i class="fas fa-file-contract"></i>
+                        <h2>Termos e Condições</h2>
+                    </div>
+                    
+                    <div class="terms-content">
+                        <p>Ao agendar nossos estúdios, você concorda com os seguintes termos:</p>
+                        <ul>
+                            <li><strong>Pagamento:</strong> 50% adiantado para reserva, 50% no dia do agendamento.</li>
+                            <li><strong>Horários:</strong> Período padrão de 8 horas (10h às 18h), meio período de 4 horas (10h-14h ou 14h-18h), de segunda a sexta.</li>
+                            <li><strong>Responsabilidades do Cliente:</strong> O cliente é responsável por qualquer dano causado aos equipamentos e ao local durante o período reservado.</li>
+                            <li><strong>Equipamentos:</strong> Qualquer quebra ou mau uso de equipamentos de áudio (microfones, mesas de som, etc.) é de responsabilidade do cliente.</li>
+                            <li><strong>Atrasos do Cliente:</strong> A Polydisc Music não se responsabiliza por atrasos ou não conclusão do período por questões técnicas do lado do cliente, como atrasos na chegada, saídas indevidas ou não conclusão no horário previsto.</li>
+                            <li><strong>Eventos Externos:</strong> Em caso de quedas de energia ou outras causas externas, o cliente tem direito a compensação, a ser marcada com a equipe técnica, dependendo da demanda do estúdio.</li>
+                            <li><strong>Cancelamento:</strong> Cancelamentos com até 48h de antecedência têm direito a reembolso integral do adiantamento. Cancelamentos com menos de 48h perdem o adiantamento.</li>
+                            <li><strong>Estúdio de Vídeo:</strong> Para orçamento de produção de vídeo, é necessário contato prévio com nossa equipe técnica.</li>
+                        </ul>
+                        <p>Ao prosseguir com o agendamento, você declara que leu e concorda com todos os termos e condições acima.</p>
+                    </div>
+                </section>
+            </div>
+            
+            <!-- Right Column: Contact & Info -->
+            <div class="right-column">
+                <!-- Contact Section -->
+                <section class="contact-section">
+                    <div class="section-title">
+                        <i class="fas fa-headset"></i>
+                        <h2>Contato & Suporte</h2>
+                    </div>
+                    
+                    <p>Para dúvidas, orçamentos de vídeo ou suporte técnico, entre em contato:</p>
+                    
+                    <div class="contact-methods">
+                        <div class="contact-item">
+                            <div class="contact-icon whatsapp">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>WhatsApp</h4>
+                                <p>(81) 99134-7040</p>
+                                <p>Atendimento das 9h às 19h</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon email">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>E-mail</h4>
+                                <p>somaxstd3@gmail.com</p>
+                                <p>Respondemos em até 24h</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Video Section -->
+                    <div class="video-section">
+                        <h4><i class="fas fa-video"></i> Conheça nosso Estúdio</h4>
+                        <div class="video-container">
+                            <div class="video-placeholder" id="videoPlaceholder1">
+                                <i class="fas fa-play-circle"></i>
+                                <p>Tour Virtual 1 do Estúdio Polydisc Music</p>
+                            </div>
+                            <video id="studioVideo1" style="width:100%; height:100%; object-fit:cover; display:none;" 
+                                   autoplay muted loop playsinline>
+                                <source src="static/video/studio-tour.mp4" type="video/mp4">
+                                Seu navegador não suporta o elemento de vídeo.
+                            </video>
+                        </div>
+                        <div class="video-container">
+                            <div class="video-placeholder" id="videoPlaceholder2">
+                                <i class="fas fa-play-circle"></i>
+                                <p>Tour Virtual 2 do Estúdio Polydisc Music</p>
+                            </div>
+                            <video id="studioVideo2" style="width:100%; height:100%; object-fit:cover; display:none;" 
+                                   autoplay muted loop playsinline>
+                                <source src="static/video/studio-tour2.mp4" type="video/mp4">
+                                Seu navegador não suporta o elemento de vídeo.
+                            </video>
+                        </div>
+                        <p style="margin-top: 15px; font-size: 0.9rem; color: var(--color-text-secondary);">
+                            Nosso estúdio possui equipamentos de última geração e isolamento acústico profissional.
+                        </p>
+                    </div>
+                    
+                    <!-- Social Media -->
+                    <div class="social-media">
+                        <h4><i class="fas fa-share-alt"></i> Siga-nos nas Redes Sociais</h4>
+                        <div class="social-icons">
+                            <a href="https://www.instagram.com/polydiscmusic/" target="_blank" class="social-icon instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://www.youtube.com/@polydisc" target="_blank" class="social-icon youtube">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Map Section -->
+                    <div class="map-section">
+                        <h4><i class="fas fa-map-marker-alt"></i> Nossa Localização</h4>
+                        <div class="map-container">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3950.375272658147!2d-34.88123562407661!3d-8.063448080528425!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7ab1993e2d6e2a9%3A0xc6556c5b8bb7e8f7!2sR.%20Imperial%2C%201638%20-%20S%C3%A3o%20Jos%C3%A9%2C%20Recife%20-%20PE%2C%2050090-000!5e0!3m2!1spt-BR!2sbr!4v1687500000000!5m2!1spt-BR!2sbr" 
+                                width="100%" 
+                                height="100%" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                        <div class="address-info">
+                            <p><strong>Endereço:</strong></p>
+                            <p>R. Imperial, 1638 - São José, Recife - PE, 50090-000</p>
+                            <p style="margin-top: 10px;">
+                                <a href="https://maps.google.com/?q=R.+Imperial,+1638+-+São+José,+Recife+-+PE,+50090-000" 
+                                   target="_blank" 
+                                   style="color: var(--color-accent-blue); text-decoration: none;">
+                                    <i class="fas fa-directions"></i> Ver rotas no Google Maps
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-secondary" style="margin-top: 30px;" onclick="openContactForm()">
+                        <i class="fas fa-comments"></i> FALE COM A EQUIPE TÉCNICA
+                    </button>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <i class="fas fa-compact-disc"></i>
+            </div>
+            <p>Polydisc Music - Estúdios Profissionais</p>
+            <p>Desde 1982 criando a sonoridade perfeita</p>
+            <div class="copyright">
+                <p>&copy; 2026 Polydisc Music. Todos os direitos reservados.</p>
+                <p>Desenvolvido com <i class="fas fa-heart" style="color: var(--color-brand-primary);"></i> para a comunidade musical</p>
+            </div>
+            <div class="footer-admin">
+                <button class="admin-toggle" onclick="promptAdminPassword()">
+                    <i class="fas fa-cog"></i> Área Administrativa
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Variáveis globais
+        let currentDate = new Date();
+        let selectedDate = null;
+        let selectedTimeSlot = null;
+        let selectedStudio = 'audio';
+        
+        // Sistema de disponibilidade
+        let availability = {};
+        
+        // Períodos padrão (segunda a sexta disponíveis)
+        const defaultAvailability = {
+            audio: ['full', 'half1', 'half2'],
+            video: []
+        };
+        
+        // Variáveis para admin
+        let adminCurrentDate = new Date();
+        let adminLoggedIn = false;
+        
+        // Função hash simples para senha
+        function simpleHash(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // Converter para inteiro de 32 bits
+            }
+            return hash;
+        }
+        
+        // Hash da senha correta: "PL-26_ST"
+        const ADMIN_PASSWORD_HASH = simpleHash("PL-26_ST");
+        
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAvailability();
+            generateCalendar(currentDate);
+            generateTimeSlots();
+            selectStudio('audio');
+            setupVideos();
+            
+            // Event listeners para navegação do mês
+            document.getElementById('prev-month').addEventListener('click', function() {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                generateCalendar(currentDate);
+            });
+            
+            document.getElementById('next-month').addEventListener('click', function() {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                generateCalendar(currentDate);
+            });
+            
+            // Event listener para checkbox de termos
+            document.getElementById('termsCheckbox').addEventListener('change', function() {
+                const confirmButton = document.getElementById('confirmButton');
+                if (this.checked) {
+                    confirmButton.disabled = false;
+                    confirmButton.classList.remove('btn-disabled');
+                } else {
+                    confirmButton.disabled = true;
+                    confirmButton.classList.add('btn-disabled');
+                }
+            });
+            
+            // Event listener para nome do cliente
+            document.getElementById('clientName').addEventListener('input', validateForm);
+        });
+        
+        // Configurar vídeos com delay
+        function setupVideos() {
+            // Configurar primeiro vídeo
+            setTimeout(function() {
+                setupVideo('studioVideo1', 'videoPlaceholder1');
+            }, 500);
+            
+            // Configurar segundo vídeo com delay
+            setTimeout(function() {
+                setupVideo('studioVideo2', 'videoPlaceholder2');
+            }, 2500);
+        }
+        
+        // Configurar um vídeo individual
+        function setupVideo(videoId, placeholderId) {
+            const video = document.getElementById(videoId);
+            const placeholder = document.getElementById(placeholderId);
+            
+            if (!video || !placeholder) return;
+            
+            // Tentar carregar o vídeo
+            video.load();
+            
+            // Quando o vídeo carregar, mostrar ele e esconder o placeholder
+            video.addEventListener('loadeddata', function() {
+                video.style.display = 'block';
+                placeholder.style.display = 'none';
+                video.play().catch(function(error) {
+                    console.log('Autoplay bloqueado para ' + videoId + ':', error);
+                    // Mostrar botão de play no placeholder
+                    placeholder.innerHTML = '<i class="fas fa-play-circle"></i><p>Clique para ver o tour do estúdio</p>';
+                    placeholder.style.cursor = 'pointer';
+                    placeholder.style.display = 'flex';
+                    placeholder.addEventListener('click', function() {
+                        video.play();
+                        video.style.display = 'block';
+                        placeholder.style.display = 'none';
+                    });
+                });
+            });
+            
+            // Se houver erro, manter o placeholder
+            video.addEventListener('error', function() {
+                console.log('Vídeo não encontrado: ' + video.querySelector('source').src);
+                // Personalizar mensagem de placeholder
+                placeholder.innerHTML = '<i class="fas fa-photo-video"></i><p>Tour do estúdio indisponível</p>';
+                placeholder.style.display = 'flex';
+            });
+        }
+        
+        // Carregar disponibilidade do localStorage
+        function loadAvailability() {
+            const savedAvailability = localStorage.getItem('polydiscAvailability');
+            if (savedAvailability) {
+                availability = JSON.parse(savedAvailability);
+            } else {
+                // Inicializar disponibilidade (segunda a sexta disponíveis por padrão)
+                initializeDefaultAvailability();
+            }
+        }
+        
+        // Inicializar disponibilidade padrão
+        function initializeDefaultAvailability() {
+            availability = {};
+            
+            // Adicionar 60 dias a partir de hoje
+            const today = new Date();
+            for (let i = 0; i < 60; i++) {
+                const date = new Date(today);
+                date.setDate(today.getDate() + i);
+                
+                // Verificar se é segunda a sexta (0 = domingo, 1 = segunda, ..., 5 = sexta, 6 = sábado)
+                const dayOfWeek = date.getDay();
+                if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+                    // Formatar data como YYYY-MM-DD
+                    const dateStr = formatDateForAvailability(date);
+                    
+                    // Adicionar disponibilidade padrão
+                    availability[dateStr] = {
+                        audio: [...defaultAvailability.audio],
+                        video: [...defaultAvailability.video]
+                    };
+                }
+            }
+        }
+        
+        // Salvar disponibilidade no localStorage
+        function saveAvailability() {
+            localStorage.setItem('polydiscAvailability', JSON.stringify(availability));
+        }
+        
+        // Gerar calendário
+        function generateCalendar(date) {
+            const monthYear = date.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
+            document.getElementById('current-month').textContent = monthYear.charAt(0).toUpperCase() + monthYear.slice(1);
+            
+            const year = date.getFullYear();
+            const month = date.getMonth();
+            
+            // Primeiro dia do mês
+            const firstDay = new Date(year, month, 1);
+            // Último dia do mês
+            const lastDay = new Date(year, month + 1, 0);
+            // Dia da semana do primeiro dia (0 = Domingo, 6 = Sábado)
+            const firstDayIndex = firstDay.getDay();
+            // Número de dias no mês
+            const daysInMonth = lastDay.getDate();
+            
+            const calendarDays = document.getElementById('calendar-days');
+            calendarDays.innerHTML = '';
+            
+            // Dias em branco antes do primeiro dia do mês
+            for (let i = 0; i < firstDayIndex; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.classList.add('day', 'empty');
+                calendarDays.appendChild(emptyDay);
+            }
+            
+            // Dias do mês
+            const today = new Date();
+            
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.classList.add('day');
+                dayElement.textContent = day;
+                
+                const currentDateObj = new Date(year, month, day);
+                const dateStr = formatDateForAvailability(currentDateObj);
+                
+                // Verificar disponibilidade
+                const isWeekday = currentDateObj.getDay() >= 1 && currentDateObj.getDay() <= 5;
+                const isAvailable = availability[dateStr] && 
+                                   ((selectedStudio === 'audio' && availability[dateStr].audio.length > 0) ||
+                                    (selectedStudio === 'video' && availability[dateStr].video.length > 0));
+                
+                // Marcar hoje
+                if (currentDateObj.toDateString() === today.toDateString()) {
+                    dayElement.classList.add('today');
+                }
+                
+                if (isWeekday && isAvailable) {
+                    dayElement.classList.add('available');
+                    
+                    // Verificar se é a data selecionada
+                    if (selectedDate && selectedDate.toDateString() === currentDateObj.toDateString()) {
+                        dayElement.classList.add('selected');
+                    }
+                    
+                    dayElement.addEventListener('click', function() {
+                        selectDate(currentDateObj);
+                    });
+                } else {
+                    dayElement.classList.add('unavailable');
+                }
+                
+                calendarDays.appendChild(dayElement);
+            }
+        }
+        
+        // Selecionar data
+        function selectDate(date) {
+            selectedDate = date;
+            
+            // Remover seleção anterior
+            const previousSelected = document.querySelector('.day.selected');
+            if (previousSelected) {
+                previousSelected.classList.remove('selected');
+            }
+            
+            // Adicionar seleção à nova data
+            const days = document.querySelectorAll('.day');
+            const dateStr = formatDateForAvailability(date);
+            
+            days.forEach(day => {
+                if (day.textContent == date.getDate() && day.classList.contains('available')) {
+                    day.classList.add('selected');
+                }
+            });
+            
+            // Atualizar slots de tempo disponíveis
+            updateTimeSlots();
+            
+            // Validar formulário
+            validateForm();
+            
+            console.log('Data selecionada:', date.toLocaleDateString('pt-BR'));
+        }
+        
+        // Gerar slots de tempo com base na disponibilidade
+        function generateTimeSlots() {
+            const timeSlotsContainer = document.getElementById('time-slots');
+            timeSlotsContainer.innerHTML = '';
+            
+            // Se não há data selecionada, não mostrar slots
+            if (!selectedDate) {
+                return;
+            }
+            
+            const dateStr = formatDateForAvailability(selectedDate);
+            const studioAvailability = availability[dateStr] ? availability[dateStr][selectedStudio] : [];
+            
+            // Mapear períodos para exibição
+            const periodMap = {
+                'full': { time: '10:00 - 18:00', period: 'Período Completo (8h)', value: 'full' },
+                'half1': { time: '10:00 - 14:00', period: 'Meio Período (4h)', value: 'half1' },
+                'half2': { time: '14:00 - 18:00', period: 'Meio Período (4h)', value: 'half2' }
+            };
+            
+            // Para vídeo, mostrar apenas período completo
+            if (selectedStudio === 'video') {
+                const slotElement = document.createElement('div');
+                slotElement.classList.add('time-slot');
+                slotElement.innerHTML = `
+                    <h4>Período Personalizado</h4>
+                    <p>Entre em contato</p>
+                `;
+                slotElement.addEventListener('click', function() {
+                    selectTimeSlot(slotElement, { period: 'personalizado', time: 'Personalizado' });
+                });
+                timeSlotsContainer.appendChild(slotElement);
+                return;
+            }
+            
+            // Para áudio, mostrar períodos disponíveis
+            Object.keys(periodMap).forEach(periodKey => {
+                const slot = periodMap[periodKey];
+                const isAvailable = studioAvailability.includes(periodKey);
+                
+                const slotElement = document.createElement('div');
+                slotElement.classList.add('time-slot');
+                if (!isAvailable) {
+                    slotElement.classList.add('unavailable');
+                }
+                
+                slotElement.innerHTML = `
+                    <h4>${slot.period}</h4>
+                    <p>${slot.time}</p>
+                `;
+                
+                if (isAvailable) {
+                    slotElement.addEventListener('click', function() {
+                        selectTimeSlot(slotElement, slot);
+                    });
+                }
+                
+                timeSlotsContainer.appendChild(slotElement);
+            });
+        }
+        
+        // Atualizar slots de tempo com base na data selecionada
+        function updateTimeSlots() {
+            generateTimeSlots();
+            
+            // Limpar seleção de slot
+            const previousSelected = document.querySelector('.time-slot.selected');
+            if (previousSelected) {
+                previousSelected.classList.remove('selected');
+            }
+            
+            selectedTimeSlot = null;
+            validateForm();
+        }
+        
+        // Selecionar slot de tempo
+        function selectTimeSlot(element, slot) {
+            // Remover seleção anterior
+            const previousSelected = document.querySelector('.time-slot.selected');
+            if (previousSelected) {
+                previousSelected.classList.remove('selected');
+            }
+            
+            // Adicionar seleção ao novo slot
+            element.classList.add('selected');
+            selectedTimeSlot = slot;
+            
+            // Validar formulário
+            validateForm();
+            
+            console.log('Slot selecionado:', slot);
+        }
+        
+        // Selecionar estúdio
+        function selectStudio(studio) {
+            selectedStudio = studio;
+            
+            // Atualizar UI
+            const audioOption = document.getElementById('audio-studio');
+            const videoOption = document.getElementById('video-studio');
+            
+            if (studio === 'audio') {
+                audioOption.classList.add('selected');
+                videoOption.classList.remove('selected');
+            } else {
+                audioOption.classList.remove('selected');
+                videoOption.classList.add('selected');
+            }
+            
+            // Atualizar calendário e slots
+            generateCalendar(currentDate);
+            updateTimeSlots();
+            
+            console.log('Estúdio selecionado:', studio);
+        }
+        
+        // Validar formulário
+        function validateForm() {
+            const clientName = document.getElementById('clientName').value.trim();
+            const termsChecked = document.getElementById('termsCheckbox').checked;
+            const isValid = clientName && selectedDate && selectedTimeSlot && termsChecked;
+            
+            const confirmButton = document.getElementById('confirmButton');
+            if (isValid) {
+                confirmButton.disabled = false;
+                confirmButton.classList.remove('btn-disabled');
+            } else {
+                confirmButton.disabled = true;
+                confirmButton.classList.add('btn-disabled');
+            }
+            
+            return isValid;
+        }
+        
+        // Confirmar agendamento
+        function confirmBooking() {
+            if (!validateForm()) {
+                alert('Por favor, preencha todos os campos obrigatórios e aceite os termos.');
+                return;
+            }
+            
+            const clientName = document.getElementById('clientName').value.trim();
+            const formattedDate = selectedDate.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+            
+            // Para vídeo, redirecionar para contato
+            if (selectedStudio === 'video') {
+                alert('Para agendamento do estúdio de vídeo, entre em contato com nossa equipe técnica para orçamento personalizado.');
+                openContactForm();
+                return;
+            }
+            
+            // Gerar mensagem para WhatsApp
+            const whatsappMessage = encodeURIComponent(
+                `Olá, meu nome é ${clientName}. Estou querendo agendar o estúdio de áudio na data ${formattedDate}, no período ${selectedTimeSlot.period} (${selectedTimeSlot.time}).`
+            );
+            
+            const whatsappURL = `https://wa.me/5581991347040?text=${whatsappMessage}`;
+            
+            // Abrir WhatsApp em nova aba
+            window.open(whatsappURL, '_blank');
+            
+            // Em um sistema real, aqui enviaríamos os dados para um servidor
+            console.log('Agendamento confirmado:', {
+                clientName,
+                date: formattedDate,
+                period: selectedTimeSlot,
+                studio: selectedStudio
+            });
+            
+            // Scroll para a seção de contato
+            document.querySelector('.contact-section').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Abrir formulário de contato
+        function openContactForm() {
+            const contactMessage = `
+                Entre em contato com nossa equipe técnica:<br><br>
+                <strong>WhatsApp:</strong> (81) 999134-7040<br>
+                <strong>E-mail:</strong> somaxstd3@gmail.com<br><br>
+                Informe suas necessidades de produção para receber um orçamento personalizado.
+            `;
+            
+            alert(contactMessage);
+        }
+        
+        // Mostrar termos
+        function showTerms() {
+            document.getElementById('terms').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Scroll para a seção de agendamento
+        function scrollToBooking() {
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Funções utilitárias
+        function formatDateForAvailability(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+        
+        // Funções do Painel Administrativo
+        function promptAdminPassword() {
+            openAdminPanel();
+        }
+        
+        function openAdminPanel() {
+            document.getElementById('adminPanel').style.display = 'block';
+            document.getElementById('adminBackdrop').style.display = 'block';
+        }
+        
+        function closeAdminPanel() {
+            document.getElementById('adminPanel').style.display = 'none';
+            document.getElementById('adminBackdrop').style.display = 'none';
+            adminLoggedIn = false;
+            document.getElementById('adminLogin').style.display = 'block';
+            document.getElementById('adminContent').style.display = 'none';
+            document.getElementById('adminPassword').value = '';
+        }
+        
+        function adminLogin() {
+            const password = document.getElementById('adminPassword').value;
+            const passwordHash = simpleHash(password);
+            
+            if (passwordHash === ADMIN_PASSWORD_HASH) {
+                adminLoggedIn = true;
+                document.getElementById('adminLogin').style.display = 'none';
+                document.getElementById('adminContent').style.display = 'block';
+                generateAdminCalendar(adminCurrentDate);
+                
+                // Adicionar event listeners para navegação do mês no admin
+                document.getElementById('admin-prev-month').addEventListener('click', function() {
+                    adminCurrentDate.setMonth(adminCurrentDate.getMonth() - 1);
+                    generateAdminCalendar(adminCurrentDate);
+                });
+                
+                document.getElementById('admin-next-month').addEventListener('click', function() {
+                    adminCurrentDate.setMonth(adminCurrentDate.getMonth() + 1);
+                    generateAdminCalendar(adminCurrentDate);
+                });
+            } else {
+                alert('Senha incorreta!');
+                document.getElementById('adminPassword').value = '';
+                document.getElementById('adminPassword').focus();
+            }
+        }
+        
+        // Gerar calendário para o painel admin
+        function generateAdminCalendar(date) {
+            const monthYear = date.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
+            document.getElementById('admin-current-month').textContent = monthYear.charAt(0).toUpperCase() + monthYear.slice(1);
+            
+            const year = date.getFullYear();
+            const month = date.getMonth();
+            
+            // Primeiro dia do mês
+            const firstDay = new Date(year, month, 1);
+            // Último dia do mês
+            const lastDay = new Date(year, month + 1, 0);
+            // Dia da semana do primeiro dia (0 = Domingo, 6 = Sábado)
+            const firstDayIndex = firstDay.getDay();
+            // Número de dias no mês
+            const daysInMonth = lastDay.getDate();
+            
+            const calendarDays = document.getElementById('admin-calendar-days');
+            calendarDays.innerHTML = '';
+            
+            // Dias em branco antes do primeiro dia do mês
+            for (let i = 0; i < firstDayIndex; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.classList.add('day', 'empty');
+                calendarDays.appendChild(emptyDay);
+            }
+            
+            // Dias do mês
+            const today = new Date();
+            const studioType = document.getElementById('adminStudioType').value;
+            const periodType = document.getElementById('adminPeriodType').value;
+            
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.classList.add('day');
+                dayElement.textContent = day;
+                
+                const currentDateObj = new Date(year, month, day);
+                const dateStr = formatDateForAvailability(currentDateObj);
+                
+                // Verificar disponibilidade
+                let isAvailable = false;
+                
+                if (availability[dateStr]) {
+                    if (studioType === 'audio') {
+                        if (periodType === 'all') {
+                            isAvailable = availability[dateStr].audio.length > 0;
+                        } else {
+                            isAvailable = availability[dateStr].audio.includes(periodType);
+                        }
+                    } else if (studioType === 'video') {
+                        isAvailable = availability[dateStr].video.length > 0;
+                    } else if (studioType === 'both') {
+                        if (periodType === 'all') {
+                            isAvailable = availability[dateStr].audio.length > 0 || availability[dateStr].video.length > 0;
+                        } else {
+                            isAvailable = availability[dateStr].audio.includes(periodType) || availability[dateStr].video.length > 0;
+                        }
+                    }
+                }
+                
+                // Marcar hoje
+                if (currentDateObj.toDateString() === today.toDateString()) {
+                    dayElement.classList.add('today');
+                }
+                
+                if (isAvailable) {
+                    dayElement.classList.add('available');
+                } else {
+                    dayElement.classList.add('unavailable');
+                }
+                
+                dayElement.addEventListener('click', function() {
+                    toggleAvailability(currentDateObj, studioType, periodType);
+                    generateAdminCalendar(adminCurrentDate);
+                });
+                
+                calendarDays.appendChild(dayElement);
+            }
+        }
+        
+        // Atualizar calendário admin quando mudar o tipo
+        function updateAdminCalendar() {
+            generateAdminCalendar(adminCurrentDate);
+        }
+        
+        // Alternar disponibilidade de uma data - LÓGICA ATUALIZADA
+        function toggleAvailability(date, studioType, periodType) {
+            const dateStr = formatDateForAvailability(date);
+            
+            // Inicializar a data se não existir
+            if (!availability[dateStr]) {
+                availability[dateStr] = {
+                    audio: [],
+                    video: []
+                };
+            }
+            
+            if (studioType === 'audio') {
+                if (periodType === 'full') {
+                    // Período completo substitui meios períodos
+                    const index = availability[dateStr].audio.indexOf('full');
+                    if (index === -1) {
+                        // Adicionar 'full' e remover meios períodos
+                        availability[dateStr].audio = ['full'];
+                    } else {
+                        // Remover 'full'
+                        availability[dateStr].audio = [];
+                    }
+                } else if (periodType === 'half1') {
+                    // Meio período 1
+                    const index = availability[dateStr].audio.indexOf('half1');
+                    if (index === -1) {
+                        // Adicionar meio período 1, remover período completo se existir
+                        if (availability[dateStr].audio.includes('full')) {
+                            availability[dateStr].audio = ['half1'];
+                        } else {
+                            availability[dateStr].audio.push('half1');
+                            // Remover meio período 2 se existir (não pode ter os dois meios períodos ao mesmo tempo)
+                            const half2Index = availability[dateStr].audio.indexOf('half2');
+                            if (half2Index !== -1) {
+                                availability[dateStr].audio.splice(half2Index, 1);
+                            }
+                        }
+                    } else {
+                        // Remover meio período 1
+                        availability[dateStr].audio.splice(index, 1);
+                    }
+                } else if (periodType === 'half2') {
+                    // Meio período 2
+                    const index = availability[dateStr].audio.indexOf('half2');
+                    if (index === -1) {
+                        // Adicionar meio período 2, remover período completo se existir
+                        if (availability[dateStr].audio.includes('full')) {
+                            availability[dateStr].audio = ['half2'];
+                        } else {
+                            availability[dateStr].audio.push('half2');
+                            // Remover meio período 1 se existir (não pode ter os dois meios períodos ao mesmo tempo)
+                            const half1Index = availability[dateStr].audio.indexOf('half1');
+                            if (half1Index !== -1) {
+                                availability[dateStr].audio.splice(half1Index, 1);
+                            }
+                        }
+                    } else {
+                        // Remover meio período 2
+                        availability[dateStr].audio.splice(index, 1);
+                    }
+                } else if (periodType === 'all') {
+                    // Alternar todos os períodos
+                    if (availability[dateStr].audio.length === 0) {
+                        // Se não tem nada, adicionar todos
+                        availability[dateStr].audio = ['full', 'half1', 'half2'];
+                    } else if (availability[dateStr].audio.length === 3) {
+                        // Se tem todos, remover tudo
+                        availability[dateStr].audio = [];
+                    } else {
+                        // Se tem alguns, adicionar os que faltam
+                        if (!availability[dateStr].audio.includes('full')) {
+                            availability[dateStr].audio.push('full');
+                        }
+                        if (!availability[dateStr].audio.includes('half1')) {
+                            availability[dateStr].audio.push('half1');
+                        }
+                        if (!availability[dateStr].audio.includes('half2')) {
+                            availability[dateStr].audio.push('half2');
+                        }
+                    }
+                }
+            } else if (studioType === 'video') {
+                // Alternar disponibilidade de vídeo
+                if (availability[dateStr].video.length === 0) {
+                    availability[dateStr].video = ['available'];
+                } else {
+                    availability[dateStr].video = [];
+                }
+            } else if (studioType === 'both') {
+                if (periodType === 'full') {
+                    const index = availability[dateStr].audio.indexOf('full');
+                    if (index === -1) {
+                        availability[dateStr].audio = ['full'];
+                        availability[dateStr].video = ['available'];
+                    } else {
+                        availability[dateStr].audio = [];
+                        availability[dateStr].video = [];
+                    }
+                } else if (periodType === 'half1') {
+                    const index = availability[dateStr].audio.indexOf('half1');
+                    if (index === -1) {
+                        // Adicionar meio período 1
+                        if (availability[dateStr].audio.includes('full')) {
+                            availability[dateStr].audio = ['half1'];
+                        } else {
+                            availability[dateStr].audio.push('half1');
+                            // Remover meio período 2 se existir
+                            const half2Index = availability[dateStr].audio.indexOf('half2');
+                            if (half2Index !== -1) {
+                                availability[dateStr].audio.splice(half2Index, 1);
+                            }
+                        }
+                        availability[dateStr].video = ['available'];
+                    } else {
+                        // Remover meio período 1
+                        availability[dateStr].audio.splice(index, 1);
+                        if (availability[dateStr].audio.length === 0) {
+                            availability[dateStr].video = [];
+                        }
+                    }
+                } else if (periodType === 'half2') {
+                    const index = availability[dateStr].audio.indexOf('half2');
+                    if (index === -1) {
+                        // Adicionar meio período 2
+                        if (availability[dateStr].audio.includes('full')) {
+                            availability[dateStr].audio = ['half2'];
+                        } else {
+                            availability[dateStr].audio.push('half2');
+                            // Remover meio período 1 se existir
+                            const half1Index = availability[dateStr].audio.indexOf('half1');
+                            if (half1Index !== -1) {
+                                availability[dateStr].audio.splice(half1Index, 1);
+                            }
+                        }
+                        availability[dateStr].video = ['available'];
+                    } else {
+                        // Remover meio período 2
+                        availability[dateStr].audio.splice(index, 1);
+                        if (availability[dateStr].audio.length === 0) {
+                            availability[dateStr].video = [];
+                        }
+                    }
+                } else if (periodType === 'all') {
+                    if (availability[dateStr].audio.length === 0 && availability[dateStr].video.length === 0) {
+                        availability[dateStr].audio = ['full', 'half1', 'half2'];
+                        availability[dateStr].video = ['available'];
+                    } else if (availability[dateStr].audio.length === 3 && availability[dateStr].video.length === 1) {
+                        availability[dateStr].audio = [];
+                        availability[dateStr].video = [];
+                    } else {
+                        if (!availability[dateStr].audio.includes('full')) {
+                            availability[dateStr].audio.push('full');
+                        }
+                        if (!availability[dateStr].audio.includes('half1')) {
+                            availability[dateStr].audio.push('half1');
+                        }
+                        if (!availability[dateStr].audio.includes('half2')) {
+                            availability[dateStr].audio.push('half2');
+                        }
+                        availability[dateStr].video = ['available'];
+                    }
+                }
+            }
+            
+            // Garantir que não haja duplicatas
+            if (availability[dateStr].audio.includes('full')) {
+                // Se tem período completo, remover meios períodos
+                availability[dateStr].audio = ['full'];
+            } else {
+                // Remover duplicatas
+                availability[dateStr].audio = [...new Set(availability[dateStr].audio)];
+                
+                // Não pode ter os dois meios períodos ao mesmo tempo
+                if (availability[dateStr].audio.includes('half1') && availability[dateStr].audio.includes('half2')) {
+                    // Manter apenas o primeiro
+                    availability[dateStr].audio = ['half1'];
+                }
+            }
+            
+            // Salvar alterações
+            saveAvailability();
+            
+            // Atualizar calendário principal se necessário
+            if (currentDate.getMonth() === date.getMonth() && currentDate.getFullYear() === date.getFullYear()) {
+                generateCalendar(currentDate);
+            }
+            
+            // Atualizar slots se a data selecionada for a mesma
+            if (selectedDate && formatDateForAvailability(selectedDate) === dateStr) {
+                updateTimeSlots();
+            }
+        }
+        
+        // Salvar alterações do admin
+        function saveAdminChanges() {
+            saveAvailability();
+            alert('Alterações salvas com sucesso!');
+        }
+        
+        // Resetar alterações do admin
+        function resetAdminChanges() {
+            if (confirm('Tem certeza que deseja resetar todas as alterações? Isso restaurará a disponibilidade padrão (segunda a sexta).')) {
+                initializeDefaultAvailability();
+                saveAvailability();
+                generateAdminCalendar(adminCurrentDate);
+                generateCalendar(currentDate);
+                updateTimeSlots();
+                alert('Disponibilidade resetada para o padrão.');
+            }
+        }
+    </script>
+</body>
+</html>
