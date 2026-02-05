@@ -1,0 +1,51 @@
+{
+  "title": "Termos e Condições - Polymusic Estúdios",
+  "introduction": "Ao agendar nossos estúdios, você concorda com os seguintes termos:",
+  "sections": [
+    {
+      "title": "Condições de Pagamento",
+      "content": [
+        "50% do valor adiantado para reserva do estúdio",
+        "50% restantes no dia do agendamento",
+        "Aceitamos PIX e transferência bancária"
+      ]
+    },
+    {
+      "title": "Horários de Funcionamento",
+      "content": [
+        "Período padrão de 8 horas (10h às 18h)",
+        "Meio período de 4 horas (10h-14h ou 14h-18h)",
+        "De segunda a sexta-feira"
+      ]
+    },
+    {
+      "title": "Responsabilidades do Cliente",
+      "content": [
+        "O cliente é responsável por qualquer dano causado aos equipamentos e ao local durante o período reservado",
+        "Qualquer quebra ou mau uso de equipamentos de áudio (microfones, mesas de som, etc.) é de responsabilidade do cliente"
+      ]
+    },
+    {
+      "title": "Atrasos e Interrupções",
+      "content": [
+        "A Polymusic não se responsabiliza por atrasos ou não conclusão do período por questões técnicas do lado do cliente",
+        "Em caso de quedas de energia ou outras causas externas, o cliente tem direito a compensação, a ser marcada com a equipe técnica"
+      ]
+    },
+    {
+      "title": "Política de Cancelamento",
+      "content": [
+        "Cancelamentos com até 48h de antecedência têm direito a reembolso integral do adiantamento",
+        "Cancelamentos com menos de 48h perdem o adiantamento"
+      ]
+    },
+    {
+      "title": "Estúdio de Vídeo",
+      "content": [
+        "Para orçamento de produção de vídeo, é necessário contato prévio com nossa equipe técnica",
+        "Períodos personalizados mediante análise técnica"
+      ]
+    }
+  ],
+  "conclusion": "Ao prosseguir com o agendamento, você declara que leu e concorda com todos os termos e condições acima."
+}
