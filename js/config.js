@@ -74,9 +74,7 @@ window.SYSTEM_CONFIG = {
     
     // E-mail
     email: 'adm@somax.com.br',
-    
-    // Senha do admin
-    adminPassword: 'PL-26_ST'
+
 };
 
 // Informações dos feriados detalhados
@@ -123,4 +121,5 @@ window.FERIADOS_DETALHADOS = {
     '2026-12-24': { descricao: 'Véspera de Natal', tipo: 'ponto_facultativo' },
     '2026-12-25': { descricao: 'Natal', tipo: 'feriado_nacional' },
     '2026-12-31': { descricao: 'Véspera de Ano-Novo', tipo: 'ponto_facultativo' }
+
 };
