@@ -1,0 +1,43 @@
+{
+    "title": "Termos e Condições - Estúdio Polymusic",
+    "introduction": "Ao realizar um agendamento no Estúdio Polymusic, você concorda com os seguintes termos e condições:",
+    "sections": [
+        {
+            "title": "1. Reservas e Pagamentos",
+            "content": [
+                "A reserva do estúdio requer 50% de sinal no ato do agendamento",
+                "O valor restante deve ser pago no dia da sessão, antes do início dos trabalhos",
+                "Aceitamos PIX, cartão de crédito/débito e dinheiro",
+                "Cancelamentos com até 48h de antecedência têm direito a reembolso integral do sinal"
+            ]
+        },
+        {
+            "title": "2. Horários e Duração",
+            "content": [
+                "Período padrão: 8 horas (10h às 18h)",
+                "Meio período: 4 horas (10h-14h ou 14h-18h)",
+                "Atrasos superiores a 30 minutos podem resultar no cancelamento da reserva",
+                "Extensões de horário devem ser negociadas e aprovadas previamente"
+            ]
+        },
+        {
+            "title": "3. Responsabilidades do Cliente",
+            "content": [
+                "O cliente é responsável por qualquer dano aos equipamentos do estúdio",
+                "É proibido fumar dentro das instalações do estúdio",
+                "Bebidas alcoólicas só são permitidas com autorização prévia",
+                "O cliente deve trazer seu próprio material de trabalho (instrumentos, etc.)"
+            ]
+        },
+        {
+            "title": "4. Equipamento e Técnicos",
+            "content": [
+                "O estúdio fornece todos os equipamentos básicos de gravação",
+                "Técnicos especializados estão disponíveis por hora adicional",
+                "Equipamentos especiais devem ser solicitados com antecedência",
+                "O estúdio não se responsabiliza por backups do material do cliente"
+            ]
+        }
+    ],
+    "conclusion": "Estes termos podem ser atualizados periodicamente. Para dúvidas, entre em contato pelo WhatsApp (81) 99134-7040 ou e-mail adm@somax.com.br."
+}
