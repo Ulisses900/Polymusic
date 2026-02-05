@@ -2,20 +2,6 @@
 // FUNÇÕES DO PAINEL ADMINISTRATIVO - VERSÃO FINAL
 // ============================================
 
-// Função hash para senha
-function simpleHash(str) {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-        const char = str.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash;
-    }
-    return hash;
-}
-
-// Hash da senha correta
-const ADMIN_PASSWORD_HASH = simpleHash(window.SYSTEM_CONFIG.adminPassword);
-
 // Abrir painel admin
 function openAdminPanel() {
     document.getElementById('adminPanel').style.display = 'block';
@@ -32,12 +18,32 @@ function closeAdminPanel() {
     document.getElementById('adminPassword').value = '';
 }
 
-// Login admin
-function adminLogin() {
+// Substitua a função adminLogin antiga por esta:
+async function adminLogin() {
+    const email = 'adm@somax.com.br'; // Email fixo
     const password = document.getElementById('adminPassword').value;
-    const passwordHash = simpleHash(password);
     
-    if (passwordHash === ADMIN_PASSWORD_HASH) {
+    // Verifica se o Supabase está configurado
+    if (!window.supabaseClient) {
+        alert('Erro: Sistema de autenticação não disponível. Verifique a conexão.');
+        console.error('Supabase client não está disponível');
+        return;
+    }
+    
+    // Tenta autenticar no Supabase
+    try {
+        const { data, error } = await window.supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password,
+        });
+
+        if (error) {
+            alert('Acesso Negado: Usuário ou senha incorretos.');
+            console.error('Erro de autenticação:', error.message);
+            return;
+        }
+
+        // Se o login for bem-sucedido:
         window.adminLoggedIn = true;
         document.getElementById('adminLogin').style.display = 'none';
         document.getElementById('adminContent').style.display = 'block';
@@ -65,10 +71,11 @@ function adminLogin() {
         document.getElementById('adminPeriodType').addEventListener('change', function() {
             generateAdminCalendar(window.adminCurrentDate);
         });
-    } else {
-        alert('Senha incorreta!');
-        document.getElementById('adminPassword').value = '';
-        document.getElementById('adminPassword').focus();
+        
+        alert('Bem-vindo, Administrador!');
+    } catch (error) {
+        console.error('Erro inesperado:', error);
+        alert('Erro ao tentar fazer login. Tente novamente.');
     }
 }
 
