@@ -947,3 +947,436 @@ footer {
     text-align: left;
     line-height: 1.4;
 }
+
+/* =========================================
+   ESTILO DO MODAL DE PORTFÓLIO (CORRIGIDO)
+   ========================================= */
+
+/* 1. O Fundo do Modal (Overlay) */
+#portfolioModal {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    z-index: 2000; /* Bem alto para ficar acima de tudo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95); /* Fundo bem escuro */
+    align-items: center;     /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+    backdrop-filter: blur(5px); /* Desfoque suave no fundo */
+}
+
+/* 2. A Caixa de Conteúdo */
+#portfolioModal .modal-content {
+    background: #111; /* Cor de fundo da caixa */
+    width: 90%;
+    max-width: 1200px; /* Limite de largura para telas grandes */
+    height: 85%;       /* Altura fixa */
+    padding: 30px;
+    border-radius: 15px;
+    overflow-y: auto;  /* Permite rolar se tiver muito conteúdo */
+    border: 1px solid var(--color-brand-primary, #cc0000);
+    box-shadow: 0 0 30px rgba(204, 0, 0, 0.2);
+    position: relative;
+}
+
+/* 3. Lógica das Abas (MOSTRAR / ESCONDER) */
+.tab-content {
+    display: none; /* Esconde tudo que não for ativo */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tab-content.active {
+    display: block; /* Mostra quem tem a classe active */
+    opacity: 1;
+    animation: fadeIn 0.5s forwards;
+}
+
+/* 4. O Grid (Faz Fotos e Vídeos ficarem lado a lado) */
+/* Aplicamos aos IDs específicos do seu HTML */
+#portfolioGallery, 
+#productionsList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsivo */
+    gap: 25px;
+    padding-top: 20px;
+    width: 100%;
+}
+
+/* 5. Estilo dos Botões das Abas */
+.portfolio-tabs {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 15px;
+}
+
+.tab-btn {
+    background: transparent;
+    border: 1px solid #444;
+    color: #bbb;
+    padding: 10px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tab-btn:hover {
+    border-color: var(--color-brand-primary, #cc0000);
+    color: white;
+}
+
+.tab-btn.active {
+    background: var(--color-brand-primary, #cc0000);
+    border-color: var(--color-brand-primary, #cc0000);
+    color: white;
+    box-shadow: 0 0 15px rgba(204, 0, 0, 0.4);
+}
+
+/* 6. Efeitos Visuais dos Vídeos (Hover e Zoom) */
+.video-wrapper {
+    overflow: hidden; /* Garante que a imagem não saia da borda */
+    border-radius: 10px;
+    border: 1px solid #333;
+}
+
+.video-wrapper img {
+    transition: transform 0.4s ease, opacity 0.3s;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Quando passa o mouse no vídeo: Zoom na imagem */
+.video-wrapper:hover img {
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+/* Quando passa o mouse no vídeo: Botão Play cresce e fica vermelho vivo */
+.video-wrapper:hover div { 
+    transform: translate(-50%, -50%) scale(1.15) !important;
+    background: #ff0000 !important;
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.6) !important;
+}
+
+/* Animação de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsividade para celular */
+@media (max-width: 768px) {
+    #portfolioGallery, #productionsList {
+        grid-template-columns: 1fr; /* Um por linha no celular */
+    }
+    .modal-content {
+        width: 95%;
+        height: 90%;
+        padding: 15px;
+    }
+}
+
+/* Adicione ao seu arquivo styles.css */
+
+/* Estilos para datas bloqueadas */
+.day.hoje-bloqueado {
+    background-color: #ff6b6b !important;
+    color: white !important;
+    cursor: not-allowed !important;
+    position: relative;
+}
+
+.day.passado {
+    background-color: #ddd !important;
+    color: #999 !important;
+    cursor: not-allowed !important;
+    text-decoration: line-through;
+}
+
+.day.today {
+    position: relative;
+    border: 2px solid #ff6b6b !important;
+}
+
+.today-badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: #ff6b6b;
+    color: white;
+    font-size: 0.6em;
+    padding: 1px 4px;
+    border-radius: 3px;
+}
+
+/* Próxima data disponível */
+.day.next-available {
+    position: relative;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(76, 201, 240, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(76, 201, 240, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(76, 201, 240, 0); }
+}
+
+.next-available-badge {
+    position: absolute;
+    top: -8px;
+    right: -5px;
+    background: var(--color-brand-primary, #cc0000);
+    color: white;
+    font-size: 0.6em;
+    padding: 2px 6px;
+    border-radius: 10px;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+/* Mensagem informativa no calendário */
+.calendar-info-message {
+    background-color: rgba(76, 201, 240, 0.1);
+    border-left: 4px solid var(--color-accent-blue);
+    padding: 10px 15px;
+    margin: 15px 0;
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+}
+
+.calendar-info-message i {
+    color: var(--color-accent-blue);
+    margin-right: 8px;
+}
+
+/* Tooltip personalizado para dias bloqueados */
+.day[title] {
+    position: relative;
+}
+
+.day[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    z-index: 100;
+    pointer-events: none;
+}
+
+/* =========================================
+   OTIMIZAÇÕES DE PERFORMANCE
+   ========================================= */
+
+/* Container otimizado para vídeos */
+.hero-video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+    transition: opacity 0.5s ease;
+}
+
+.hero-background.loaded {
+    opacity: 0.5;
+}
+
+.hero-fallback {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--color-dark-base) 0%, var(--color-dark-tertiary) 100%);
+}
+
+/* Vídeos otimizados com preview */
+.video-preview {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.3s ease;
+    filter: brightness(0.9);
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    margin-top: 15px;
+    border: 1px solid var(--color-dark-secondary);
+    background-color: var(--color-dark-base);
+    cursor: pointer;
+}
+
+.video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none; /* Escondido inicialmente */
+}
+
+.video-container.active video {
+    display: block; /* Mostra quando ativo */
+}
+
+.video-container.active .video-preview {
+    display: none; /* Esconde o preview quando vídeo está ativo */
+}
+
+.video-container:hover .video-preview {
+    transform: scale(1.05);
+    filter: brightness(1);
+}
+
+.video-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: white;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.video-overlay .play-icon {
+    margin-left: 8px;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.video-container:hover .video-overlay .play-icon {
+    opacity: 1;
+    color: var(--color-brand-primary);
+}
+
+/* Otimização de scroll */
+.terms-content,
+.modal-content,
+.admin-panel {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-brand-primary) var(--color-dark-tertiary);
+}
+
+/* Otimização de animações para performance */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Otimização de renderização */
+.day, .time-slot, .studio-option, .service-option {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Loading otimizado */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-dark-base);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.loading-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--color-dark-tertiary);
+    border-top: 3px solid var(--color-brand-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Otimização para dispositivos móveis */
+@media (max-width: 768px) {
+    /* Reduzir qualidade de vídeo em mobile */
+    .hero-background {
+        opacity: 0.3;
+    }
+    
+    /* Desativar algumas animações em mobile */
+    .day:hover {
+        transform: none;
+    }
+    
+    .video-container {
+        height: 150px;
+    }
+}
+
+/* Otimização de imagens */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Prevenção de layout shifts */
+iframe {
+    aspect-ratio: 16/9;
+}
+
+.map-container iframe {
+    aspect-ratio: 4/3;
+}
+
+/* Performance de fontes */
+body {
+    font-display: swap;
+}

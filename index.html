@@ -5,12 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estúdios Polymusic - Agendamento</title>
     
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Fonts - Adicione preconnect para performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- CSS -->
     <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Meta tags para performance -->
+    <meta name="theme-color" content="#0a0a0f">
+    <meta name="description" content="Estúdios Polymusic - Agendamento profissional para gravação de áudio e vídeo. Desde 1983 criando a sonoridade perfeita.">
 </head>
 <body>
     <!-- Header -->
@@ -18,7 +24,11 @@
         <div class="container header-content">
             <div class="logo">
                 <div class="logo-icon">
-                    <img src="static/image/logo.png" alt="Logo Polydisc" style="width: 50px; height: auto; vertical-align: middle;">
+                    <!-- Imagem otimizada com lazy loading -->
+                    <img src="static/image/logo.png" alt="Logo Polydisc" 
+                         width="50" height="50"
+                         loading="lazy" decoding="async"
+                         style="width: 50px; height: auto; vertical-align: middle;">
                 </div>
                 <div class="logo-text">
                     <h1>POLY<span>MUSIC</span></h1>
@@ -26,42 +36,38 @@
                 </div>
             </div>
             <div class="contact-info">
-                <p><i class="fab fa-whatsapp"></i> (81) 99134-7040 (Áudio)</p>
-                <p><i class="fab fa-whatsapp"></i> (81) 99633-2752 (Vídeo)</p>
+                <p><i class="fab fa-whatsapp"></i> (81) 98446-3644 (Áudio)</p> 
+                <p><i class="fab fa-whatsapp"></i> (81) 99134-7040 (Vídeo)</p>
                 <p><i class="fas fa-envelope"></i> adm@somax.com.br</p>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Section - Vídeo otimizado -->
     <section class="hero">
-        <video
-            class="hero-background"
-            autoplay
-            muted
-            loop
-            playsinline
-            preload="metadata"
-            onerror="this.style.display='none'"
-            >
-            <source src="static/video/background.mp4" type="video/mp4">
+        <!-- Vídeo de fundo otimizado -->
+        <div class="hero-video-container">
+            <video class="hero-background" playsinline muted loop preload="metadata"
+                   onloadeddata="this.classList.add('loaded')"
+                   onerror="this.style.display='none'; document.querySelector('.hero-fallback').style.display='block';">
+                <source src="static/video/background.mp4" type="video/mp4">
+                <!-- Fallback para WebM se disponível -->
+                <source src="static/video/background.webm" type="video/webm">
             </video>
+            <!-- Fallback estático -->
+            <div class="hero-fallback" style="display: none;"></div>
+        </div>
 
-            <div class="hero-content">
-                <h2>Polymusic: 40 Anos de História na Música Brasileira</h2>
-                
-                <p>A Polymusic nasce de um legado que começou em 1983. Com mais de quatro décadas de tradição, consolidamos nossa marca como um dos estúdios mais icônicos do país, unindo um corpo técnico de elite a equipamentos de excelência.</p>
-                
-                <p>Nossa trajetória se confunde com a própria história da música. Fomos o berço de registros antológicos, como o lendário "Paebiru" de Lula Côrtes e Zé Ramalho, e recebemos em nossas salas ícones como Reginaldo Rossi, Lia de Itamaracá, Conde Só Brega e Tayrone.</p>
-                
-                <p><strong>Pioneirismo é nossa marca registrada:</strong> fomos a gravadora responsável por lançar a icônica série "20 Super Sucessos". O projeto não apenas revolucionou o mercado fonográfico, mas se tornou um dos maiores fenômenos de vendas da história, levando a arte de grandes intérpretes a todos os cantos do Brasil.</p>
-                
-                <p>Na Polymusic, todas as vertentes culturais e folclóricas encontram seu espaço. Evoluímos do analógico ao digital, acompanhando cada transformação do mercado para garantir que a sua arte receba o tratamento que merece.</p>
-                
-                <div class="hero-buttons" style="margin-top: 30px;">
-                    </div>
-            </div>
+        <div class="hero-content">
+            <h2>Polymusic: 40 Anos de História na Música Brasileira</h2>
+            <p>A Polymusic nasce de um legado que começou em 1983. Com mais de quatro décadas de tradição, consolidamos nossa marca como um dos estúdios mais icônicos do país, unindo um corpo técnico de elite a equipamentos de excelência.</p>
+            <p>Nossa trajetória se confunde com a própria história da música. Fomos o berço de registros antológicos, como o lendário "Paebiru" de Lula Côrtes, e recebemos em nossas salas ícones como Reginaldo Rossi, Lia de Itamaracá, Conde Só Brega e Tayrone.</p>
+            <p>Na Polymusic, todas as vertentes culturais e folclóricas encontram seu espaço. Evoluímos do analógico ao digital, acompanhando cada transformação do mercado para garantir que a sua arte receba o tratamento que merece.</p>
+            <div class="hero-buttons" style="margin-top: 30px;">
                 <button class="btn" onclick="scrollToBooking()">FAZER AGENDAMENTO</button>
+                <button class="btn btn-primary" onclick="openPortfolioModal()">
+                    <i class="fas fa-images"></i> CONHEÇA NOSSO PORTFÓLIO
+                </button>
             </div>
         </div>
     </section>
@@ -273,7 +279,7 @@
                     </div>
                     
                     <!-- Booking Button -->
-                    <button class="btn" id="confirmButton" onclick="confirmBooking()" disabled>CONFIRMAR AGENDAMENTO</button>
+                    <button class="btn" id="confirmButton" onclick="confirmBooking()" disabled>ENTRAR EM CONTATO PARA AGENDAR</button>
                 </section>
                 
                 <!-- Terms Section -->
@@ -307,8 +313,8 @@
                             </div>
                             <div class="contact-details">
                                 <h4>WhatsApp (Áudio)</h4>
-                                <p>(81) 99134-7040</p>
-                                <p>Atendimento das 9h às 19h</p>
+                                <p>(81) 98446-3644</p>
+                                <p>Atendimento das 9h às 17h</p>
                             </div>
                         </div>
                         
@@ -318,7 +324,7 @@
                             </div>
                             <div class="contact-details">
                                 <h4>WhatsApp (Vídeo)</h4>
-                                <p>(81) 99633-2752</p>
+                                <p>(81) 99134-7040</p>
                                 <p>Orçamentos personalizados</p>
                             </div>
                         </div>
@@ -330,50 +336,39 @@
                             <div class="contact-details">
                                 <h4>E-mail</h4>
                                 <p>adm@somax.com.br</p>
-                                <p>Respondemos em até 24h</p>
+                                <p>Respondemos em até 24h "Dias uteis"</p>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Video Section -->
+                    <!-- Video Section OTIMIZADA -->
                     <div class="video-section">
                         <h4><i class="fas fa-video"></i> Conheça nosso Estúdio</h4>
                         <p style="margin-bottom: 15px; font-size: 0.9rem; color: var(--color-text-secondary);">
-                            Tours virtuais do nosso estúdio!
+                            Tours virtuais do nosso estúdio! (Passe o mouse para ativar)
                         </p>
                         
-                        <!-- Primeiro vídeo -->
-                        <div class="video-container">
-                            <video
-                            autoplay
-                            muted
-                            loop
-                            playsinline
-                            preload="metadata"
-                            style="width:100%;height:100%;object-fit:cover;"
-                            >
-                            <source src="./static/video/studio-tour.mp4" type="video/mp4">
-                            </video>
-
+                        <!-- Primeiro vídeo - OTIMIZADO -->
+                        <div class="video-container" data-video-src="./static/video/studio-tour.mp4">
+                            <div class="video-preview" style="background-image: url('static/video/studio-tour-poster.jpg');"></div>
                             <div class="video-overlay">
-                                <p>Estudio A</p>
+                                <p>Estudio A <span class="play-icon"><i class="fas fa-play"></i></span></p>
                             </div>
                         </div>
                         
-                        <!-- Segundo vídeo -->
-                        <div class="video-container">
-                            <video
-                            autoplay
-                            muted
-                            loop
-                            playsinline
-                            preload="metadata"
-                            style="width:100%;height:100%;object-fit:cover;"
-                            >
-                            <source src="./static/video/studio-tour2.mp4" type="video/mp4">
-                            </video>
+                        <!-- Segundo vídeo - OTIMIZADO -->
+                        <div class="video-container" data-video-src="./static/video/studio-tour2.mp4">
+                            <div class="video-preview" style="background-image: url('static/video/studio-tour2-poster.jpg');"></div>
                             <div class="video-overlay">
-                                <p>Estudio B</p>
+                                <p>Estudio B <span class="play-icon"><i class="fas fa-play"></i></span></p>
+                            </div>
+                        </div>
+                        
+                        <!-- Terceiro vídeo (Estúdio C) - OTIMIZADO -->
+                        <div class="video-container" data-video-src="./static/video/studio-tour3.mp4">
+                            <div class="video-preview" style="background-image: url('static/video/studio-tour3-poster.jpg');"></div>
+                            <div class="video-overlay">
+                                <p>Estudio C (Vídeo) <span class="play-icon"><i class="fas fa-play"></i></span></p>
                             </div>
                         </div>
                         
@@ -386,27 +381,31 @@
                     <div class="social-media">
                         <h4><i class="fas fa-share-alt"></i> Siga-nos nas Redes Sociais</h4>
                         <div class="social-icons">
-                            <a href="https://www.instagram.com/polydiscmusic/" target="_blank" class="social-icon instagram">
+                            <a href="https://www.instagram.com/polydiscmusic/" target="_blank" 
+                               rel="noopener noreferrer" class="social-icon instagram">
                                 <i class="fab fa-instagram"></i>
                             </a>
-                            <a href="https://www.youtube.com/@polydisc" target="_blank" class="social-icon youtube">
+                            <a href="https://www.youtube.com/@polydisc" target="_blank" 
+                               rel="noopener noreferrer" class="social-icon youtube">
                                 <i class="fab fa-youtube"></i>
                             </a>
                         </div>
                     </div>
                     
-                    <!-- Map Section -->
+                    <!-- Map Section OTIMIZADA -->
                     <div class="map-section">
                         <h4><i class="fas fa-map-marker-alt"></i> Nossa Localização</h4>
                         <div class="map-container">
+                            <!-- Iframe com lazy loading -->
                             <iframe 
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3950.375272658147!2d-34.88123572407661!3d-8.063448080528425!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7ab1993e2d6e2a9%3A0xc6556c5b8bb7e8f7!2sR.%20Imperial%2C%201638%20-%20S%C3%A3o%20Jos%C3%A9%2C%20Recife%20-%20PE%2C%2050090-000!5e0!3m2!1spt-BR!2sbr!4v1687500000000!5m2!1spt-BR!2sbr" 
+                                loading="lazy"
+                                data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3950.375272658147!2d-34.88123572407661!3d-8.063448080528425!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7ab1993e2d6e2a9%3A0xc6556c5b8bb7e8f7!2sR.%20Imperial%2C%201638%20-%20S%C3%A3o%20Jos%C3%A9%2C%20Recife%20-%20PE%2C%2050090-000!5e0!3m2!1spt-BR!2sbr!4v1687500000000!5m2!1spt-BR!2sbr" 
                                 width="100%" 
                                 height="100%" 
                                 style="border:0;" 
                                 allowfullscreen="" 
-                                loading="lazy" 
-                                referrerpolicy="no-referrer-when-downgrade">
+                                referrerpolicy="no-referrer-when-downgrade"
+                                title="Localização do Estúdio Polymusic">
                             </iframe>
                         </div>
                         <div class="address-info">
@@ -415,6 +414,7 @@
                             <p style="margin-top: 10px;">
                                 <a href="https://maps.google.com/?q=R.+Imperial,+1638+-+São+José,+Recife+-+PE,+50090-000" 
                                    target="_blank" 
+                                   rel="noopener noreferrer"
                                    style="color: var(--color-accent-blue); text-decoration: none;">
                                     <i class="fas fa-directions"></i> Ver rotas no Google Maps
                                 </a>
@@ -426,6 +426,47 @@
                         <i class="fas fa-comments"></i> FALE COM A EQUIPE TÉCNICA
                     </button>
                 </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portfolio Modal -->
+    <div class="modal-backdrop" id="portfolioModal" onclick="closePortfolioModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closePortfolioModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="section-title">
+                <i class="fas fa-images"></i>
+                <h2>Nosso Portfólio</h2>
+            </div>
+            
+            <div class="portfolio-tabs">
+                <button class="tab-btn active" onclick="showTab('photos')">
+                    <i class="fas fa-camera"></i> Fotos do Estúdio
+                </button>
+                <button class="tab-btn" onclick="showTab('productions')">
+                    <i class="fab fa-youtube"></i> Nossas Produções
+                </button>
+            </div>
+            
+            <div class="portfolio-content">
+                <!-- Photos Tab -->
+                <div class="tab-content active" id="photosTab">
+                    <div class="portfolio-gallery" id="portfolioGallery">
+                        <!-- Fotos serão carregadas dinamicamente -->
+                        <div class="loading">Carregando fotos...</div>
+                    </div>
+                </div>
+                
+                <!-- Productions Tab -->
+                <div class="tab-content" id="productionsTab">
+                    <div class="productions-list" id="productionsList">
+                        <!-- Vídeos do YouTube serão carregados dinamicamente -->
+                        <div class="loading">Carregando produções...</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -450,15 +491,16 @@
         </div>
     </footer>
 
-    <!-- Incluir Supabase JS -->
-    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <!-- Scripts otimizados -->
+    <!-- Supabase com defer -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
     
-    <!-- Incluir nossos scripts -->
-    <script src="js/config.js"></script>
-    <script src="js/calendar.js"></script>
-    <script src="js/admin.js"></script>
-    <script src="js/main.js"></script>
+    <!-- Nossos scripts com defer e em ordem correta -->
+    <script src="js/config.js" defer></script>
+    <script src="js/calendar.js" defer></script>
+    <script src="js/admin.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/portfolio.js" defer></script>
+    <script src="js/optimization.js" defer></script>
 </body>
-
 </html>
-

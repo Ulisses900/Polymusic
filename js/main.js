@@ -139,7 +139,7 @@ window.confirmBooking = function() {
 
 
 window.openContactForm = function() {
-    const contactMessage = `Entre em contato com nossa equipe técnica:\n\nWhatsApp Áudio: (81) 99134-7040\nWhatsApp Vídeo: (81) 99633-2752\nE-mail: ${window.SYSTEM_CONFIG.email}\n\nInforme suas necessidades de produção para receber um orçamento personalizado.`;
+    const contactMessage = `Entre em contato com nossa equipe técnica:\n\nWhatsApp Áudio: (81) 98446-3644\nWhatsApp Vídeo: (81) 99134-7040\nE-mail: ${window.SYSTEM_CONFIG.email}\n\nInforme suas necessidades de produção para receber um orçamento personalizado.`;
     alert(contactMessage);
 };
 
